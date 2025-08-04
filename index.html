@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Nexus - Technology for Those Who Need It Most</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1a1a2e;
+            --primary-red: #E10600;
+            --primary-white: #ffffff;
+            --secondary-pink: #FFD2D2;
+            --secondary-beige: #FFFDE8;
+            --text-gray: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--primary-navy);
+            color: var(--primary-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-white);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary-red);
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--primary-white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page content */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #0f0f23 100%);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 0 0 L 10 0 M 0 0 L 0 10" stroke="%23E10600" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .hero-logo i {
+            color: var(--primary-red);
+            font-size: 5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--secondary-pink);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: var(--primary-red);
+            color: var(--primary-white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-white);
+            color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(225, 6, 0, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary-red);
+            color: var(--primary-white);
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-white);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-red);
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(225, 6, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--secondary-pink));
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(225, 6, 0, 0.2);
+            border-color: var(--primary-red);
+        }
+
+        .card h3 {
+            color: var(--primary-red);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .card .quote {
+            background: rgba(255, 210, 210, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary-pink);
+            font-style: italic;
+            color: var(--secondary-pink);
+        }
+
+        /* Forms */
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-white);
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(225, 6, 0, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary-white);
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(225, 6, 0, 0.3);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: var(--primary-red);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-pink);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--primary-navy);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero-logo {
+                font-size: 2.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero-logo i {
+                font-size: 3rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Page-specific styles */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            background: rgba(225, 6, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .value-item i {
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .dream-banner {
+            background: linear-gradient(135deg, var(--primary-red), #c50500);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dream-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(50px); }
+        }
+
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .department {
+            background: rgba(255, 210, 210, 0.1);
+            border: 2px solid var(--secondary-pink);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .department:hover {
+            background: rgba(225, 6, 0, 0.1);
+            border-color: var(--primary-red);
+            transform: scale(1.05);
+        }
+
+        .department i {
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-dragon"></i>
+                Code Nexus
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+                <li><a href="#" onclick="showPage('hackathons')">Hackathons</a></li>
+                <li><a href="#" onclick="showPage('dream')">Dream Project</a></li>
+                <li><a href="#" onclick="showPage('join')">Join Team</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <i class="fas fa-dragon"></i>
+                    <span>Code Nexus</span>
+                </div>
+                <div class="hero-tagline">Technology for Those Who Need It Most</div>
+                <div class="hero-description">
+                    Code Nexus is a student-led nonprofit using technology to empower NGOs, small businesses, and underserved youth. From building real-world solutions to running global hackathons and tech workshops, we exist to make tech accessible to those who need it most.
+                </div>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button" onclick="showPage('projects')">Explore Projects</a>
+                    <a href="#" class="cta-button secondary" onclick="showPage('join')">Join the Team</a>
+                    <a href="#" class="cta-button" onclick="showPage('contact')">Submit a Request</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section">
+            <h1 class="section-title">About Code Nexus</h1>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Our Story</h3>
+                <p>Born in the vibrant tech ecosystem of Singapore, Code Nexus emerged from a simple yet powerful belief: technology should serve everyone, not just those who can afford it. What started as a group of passionate students wanting to give back has evolved into an international movement of young technologists dedicated to social impact.</p>
+                <p>We bridge the digital divide by connecting skilled student developers with organizations that need technology the most—from local NGOs fighting poverty to small businesses trying to establish their digital presence.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div class="card">
+                    <h3><i class="fas fa-bullseye" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Mission</h3>
+                    <p>To democratize access to technology tools and learning opportunities, ensuring that financial barriers never prevent innovation or growth.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-eye" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Vision</h3>
+                    <p>To build the next generation of socially-conscious tech creators who use their skills to solve real-world problems and create positive change.</p>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: var(--primary-red); margin: 3rem 0 2rem;">Our Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <i class="fas fa-universal-access"></i>
+                    <h3>Accessibility</h3>
+                    <p>Technology should be available to everyone, regardless of background or resources.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Collaboration</h3>
+                    <p>We believe in the power of working together to achieve greater impact.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovation</h3>
+                    <p>We embrace creative solutions and cutting-edge approaches to social challenges.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-heart"></i>
+                    <h3>Impact</h3>
+                    <p>Everything we do is measured by the positive change it creates in communities.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projects" class="page">
+        <section class="section">
+            <h1 class="section-title">Our Projects</h1>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Damascus Delights</h3>
+                    <p>A beautiful, responsive website for a Syrian food business, helping them reach new customers and share their authentic culinary heritage with the community.</p>
+                    <div class="quote">
+                        "Code Nexus gave us a digital home that truly represents our family's story and delicious food."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Singapore Corporate Cricket League</h3>
+                    <p>A comprehensive platform organizing inter-corporate cricket matches, managing teams, schedules, and player statistics across Singapore's business community.</p>
+                    <div class="quote">
+                        "The platform transformed how we organize our league—everything is now seamless and professional."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>SMCT Education Portal</h3>
+                    <p>A full-stack education management system for Siddharth Memorial Charitable Trust, streamlining student enrollment, progress tracking, and resource allocation.</p>
+                    <div class="quote">
+                        "This system revolutionized how we serve our students and manage our educational programs."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>HOPE India</h3>
+                    <p>A custom full-stack website for HOPE India, enhancing their nonprofit operations with volunteer management, donation tracking, and impact reporting.</p>
+                    <div class="quote">
+                        "Code Nexus helped us amplify our impact and reach more people who need our help."
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <h2 style="color: var(--primary-red); margin-bottom: 1rem;">Ongoing Requests</h2>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">We're currently working with several new clients to bring their digital visions to life. Each project represents an opportunity to make technology more accessible and impactful.</p>
+                <a href="#" class="cta-button" onclick="showPage('contact')">Submit Your Request</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hackathons Page -->
+    <div id="hackathons" class="page">
+        <section class="section">
+            <h1 class="section-title">Hackathons & Workshops</h1>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                <div class="card">
+                    <h3><i class="fas fa-globe" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Virtual Global Hackathon</h3>
+                    <p>Open to participants worldwide, our hackathons bring together students from different countries to build digital solutions for social good, healthcare, and sustainability challenges.</p>
+                    <p><strong>Features:</strong></p>
+                    <ul style="color: var(--text-gray); margin: 1rem 0; padding-left: 1rem;">
+                        <li>Remote mentorship from industry experts</li>
+                        <li>48-hour intensive building sessions</li>
+                        <li>Prizes for most impactful solutions</li>
+                        <li>Networking with global participants</li>
+                    </ul>
+                    <div class="quote">
+                        "Join thousands of student innovators building the future, one hack at a time."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-chalkboard-teacher" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Workshop Series - Learn & Build</h3>
+                    <p>Our virtual training series teaches programming from the ground up, starting with beginner-friendly syntax and culminating in hands-on mini-projects.</p>
+                    <p><strong>Curriculum:</strong></p>
+                    <ul style="color: var(--text-gray); margin: 1rem 0; padding-left: 1rem;">
+                        <li>Python fundamentals and syntax</li>
+                        <li>HTML, CSS, and web development</li>
+                        <li>JavaScript and interactive programming</li>
+                        <li>Final project: Build your own app</li>
+                    </ul>
+                    <div class="quote">
+                        "From zero to building real applications—our workshops make coding accessible to everyone."
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: rgba(255, 210, 210, 0.1); border-radius: 15px;">
+                <h2 style="color: var(--primary-red); margin-bottom: 1rem;">Want us to run a workshop for your school or NGO?</h2>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">We customize our workshops to fit your organization's needs and can deliver them virtually to any location worldwide.</p>
+                <a href="#" class="cta-button" onclick="showPage('contact')">Get in Touch</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dream Project Page -->
+    <div id="dream" class="page">
+        <section class="section">
+            <h1 class="section-title">Dream Project</h1>
+            
+            <div class="dream-banner">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem; position: relative; z-index: 2;">Singapore Teen Hackathon</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; position: relative; z-index: 2;">A free, national-level hackathon for all teenagers in Singapore</p>
+            </div>
+
+            <div class="card" style="margin: 2rem 0;">
+                <h3>The Vision</h3>
+                <p>We're building Singapore's premier hackathon exclusively for teenagers aged 13-18, focused on solving real-world problems that matter to young people. This isn't just another coding competition—it's a platform for the next generation to showcase their creativity, innovation, and passion for positive change.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div class="card">
+                    <h3><i class="fas fa-users" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Who Can Participate</h3>
+                    <p>Any teenager in Singapore aged 13-18, regardless of coding experience. We welcome beginners, experts, and everyone in between.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-brain" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Problem Areas</h3>
+                    <p>Climate change, education inequality, mental health, urban sustainability, and social justice—issues that define our generation.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-medal" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Expert Mentorship</h3>
+                    <p>Direct access to industry professionals, startup founders, and tech leaders who will guide participants throughout the event.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-trophy" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Recognition & Prizes</h3>
+                    <p>Winning teams receive not just prizes, but opportunities for internships, mentorship, and support to develop their ideas further.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: rgba(225, 6, 0, 0.1); border: 2px solid var(--primary-red); border-radius: 15px;">
+                <h2 style="color: var(--primary-red); margin-bottom: 1rem;">2025 Pilot Program</h2>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">We're launching our pilot program in late 2025 with 100 participants. This will be the foundation for what we hope becomes Singapore's most anticipated annual teen tech event.</p>
+                <h3 style="color: var(--secondary-pink); margin-bottom: 1rem;">Looking for Partners & Sponsors</h3>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">Help us make this dream a reality. We're seeking partners who believe in empowering young innovators.</p>
+                <a href="#" class="cta-button" onclick="showPage('contact')">Partner With Us</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Join Team Page -->
+    <div id="join" class="page">
+        <section class="section">
+            <h1 class="section-title">Join the Team</h1>
+            
+            <div class="card" style="text-align: center; margin-bottom: 3rem;">
+                <h3>Code Nexus is entirely youth-led</h3>
+                <p style="font-size: 1.2rem; color: var(--secondary-pink);">If you're a student passionate about tech, design, business, or social impact—we want you on our team.</p>
+            </div>
+
+            <h2 style="text-align: center; color: var(--primary-red); margin-bottom: 2rem;">Open Departments</h2>
+            
+            <div class="departments-grid">
+                <div class="department">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Design & Marketing</h3>
+                    <p>Create visual identities, marketing campaigns, and user experiences that tell compelling stories.</p>
+                </div>
+
+                <div class="department">
+                    <i class="fas fa-code"></i>
+                    <h3>Developers</h3>
+                    <p>Build websites, apps, and digital solutions using cutting-edge technologies and frameworks.</p>
+                </div>
+
+                <div class="department">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Finance & Legals</h3>
+                    <p>Manage budgets, partnerships, legal compliance, and strategic business operations.</p>
+                </div>
+
+                <div class="department">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Event Management</h3>
+                    <p>Organize hackathons, workshops, and community events that bring people together.</p>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <h3 style="text-align: center; color: var(--primary-red); margin-bottom: 2rem;">Apply Now</h3>
+                <form onsubmit="handleJoinSubmit(event)">
+                    <div class="form-group">
+                        <label for="join-name">Full Name *</label>
+                        <input type="text" id="join-name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-age">Age *</label>
+                        <input type="number" id="join-age" name="age" min="13" max="25" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-email">Email *</label>
+                        <input type="email" id="join-email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-department">Preferred Department *</label>
+                        <select id="join-department" name="department" required>
+                            <option value="">Select a department</option>
+                            <option value="design">Design & Marketing</option>
+                            <option value="development">Developers</option>
+                            <option value="finance">Finance & Legals</option>
+                            <option value="events">Event Management & Logistics</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-skills">Skills & Experience</label>
+                        <textarea id="join-skills" name="skills" rows="4" placeholder="Tell us about your relevant skills, experience, or technologies you know..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-portfolio">Portfolio/GitHub (Optional)</label>
+                        <input type="url" id="join-portfolio" name="portfolio" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="join-why">Why do you want to join Code Nexus? *</label>
+                        <textarea id="join-why" name="why" rows="4" required placeholder="Share your motivation and what you hope to contribute..."></textarea>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="submit" class="cta-button">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section">
+            <h1 class="section-title">Contact & Submit Requests</h1>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div class="card">
+                    <h3><i class="fas fa-laptop-code" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Need a Website or Tech Solution?</h3>
+                    <p>We help NGOs, small businesses, and community organizations build their digital presence with custom websites, web applications, and tech solutions.</p>
+                    <p><strong>Perfect for:</strong></p>
+                    <ul style="color: var(--text-gray); margin: 1rem 0; padding-left: 1rem;">
+                        <li>Nonprofit organizations</li>
+                        <li>Small and medium enterprises</li>
+                        <li>Community groups and initiatives</li>
+                        <li>Educational institutions</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-handshake" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Partnership & Collaboration</h3>
+                    <p>Interested in partnering with us for events, sponsoring our initiatives, or collaborating on social impact projects?</p>
+                    <p><strong>Opportunities include:</strong></p>
+                    <ul style="color: var(--text-gray); margin: 1rem 0; padding-left: 1rem;">
+                        <li>Hackathon sponsorship</li>
+                        <li>Workshop partnerships</li>
+                        <li>Mentorship programs</li>
+                        <li>Corporate social responsibility initiatives</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem;">
+                <!-- Tech Request Form -->
+                <div class="form-container">
+                    <h3 style="text-align: center; color: var(--primary-red); margin-bottom: 2rem;">Request Tech Help</h3>
+                    <form onsubmit="handleTechRequest(event)">
+                        <div class="form-group">
+                            <label for="tech-org">Organization Name *</label>
+                            <input type="text" id="tech-org" name="organization" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-type">Organization Type *</label>
+                            <select id="tech-type" name="type" required>
+                                <option value="">Select type</option>
+                                <option value="ngo">NGO/Nonprofit</option>
+                                <option value="sme">Small/Medium Enterprise</option>
+                                <option value="community">Community Group</option>
+                                <option value="education">Educational Institution</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-contact">Contact Person *</label>
+                            <input type="text" id="tech-contact" name="contact" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-email">Email *</label>
+                            <input type="email" id="tech-email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-phone">Phone Number</label>
+                            <input type="tel" id="tech-phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-project">Project Description *</label>
+                            <textarea id="tech-project" name="project" rows="4" required placeholder="Describe what you need - website, web app, database system, etc."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-timeline">Preferred Timeline</label>
+                            <select id="tech-timeline" name="timeline">
+                                <option value="">Select timeline</option>
+                                <option value="asap">ASAP</option>
+                                <option value="1month">Within 1 month</option>
+                                <option value="3months">Within 3 months</option>
+                                <option value="6months">Within 6 months</option>
+                                <option value="flexible">Flexible</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tech-budget">Budget Range (Optional)</label>
+                            <select id="tech-budget" name="budget">
+                                <option value="">Select range</option>
+                                <option value="pro-bono">Pro Bono (Free)</option>
+                                <option value="minimal">Minimal Budget</option>
+                                <option value="moderate">Moderate Budget</option>
+                                <option value="discuss">Let's Discuss</option>
+                            </select>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="cta-button">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- General Enquiry Form -->
+                <div class="form-container">
+                    <h3 style="text-align: center; color: var(--primary-red); margin-bottom: 2rem;">General Enquiry</h3>
+                    <form onsubmit="handleGeneralEnquiry(event)">
+                        <div class="form-group">
+                            <label for="gen-name">Full Name *</label>
+                            <input type="text" id="gen-name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gen-email">Email *</label>
+                            <input type="email" id="gen-email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gen-subject">Subject *</label>
+                            <select id="gen-subject" name="subject" required>
+                                <option value="">Select subject</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="sponsorship">Sponsorship Enquiry</option>
+                                <option value="workshop">Workshop Request</option>
+                                <option value="speaking">Speaking Engagement</option>
+                                <option value="media">Media/Press Enquiry</option>
+                                <option value="volunteer">Volunteer Opportunity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gen-organization">Organization (Optional)</label>
+                            <input type="text" id="gen-organization" name="organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gen-message">Message *</label>
+                            <textarea id="gen-message" name="message" rows="6" required placeholder="Tell us about your enquiry, partnership idea, or how we can help..."></textarea>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="cta-button">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p>Contact: <a href="mailto:codenexusorg@gmail.com" style="color: var(--primary-red);">codenexusorg@gmail.com</a></p>
+            <p style="color: var(--secondary-pink); font-weight: 700;">Built by students. For change.</p>
+            <p>&copy; 2025 Code Nexus. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Form submissions
+        function handleJoinSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert('Thank you for your application! We\'ll review it and get back to you within 5-7 business days.');
+            event.target.reset();
+        }
+
+        function handleTechRequest(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert('Thank you for your tech request! Our team will review your project and contact you within 48 hours to discuss next steps.');
+            event.target.reset();
+        }
+
+        function handleGeneralEnquiry(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert('Thank you for reaching out! We\'ll respond to your enquiry within 24 hours.');
+            event.target.reset();
+        }
+
+        // Add smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards
+            document.querySelectorAll('.card, .value-item, .department').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add CSS animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .card, .value-item, .department {
+                    opacity: 0;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.98)';
+                } else {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const navMenu = document.querySelector('.nav-menu');
+                const hamburger = document.querySelector('.hamburger');
+                
+                if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Add typing effect to hero tagline
+            const tagline = document.querySelector('.hero-tagline');
+            const text = tagline.textContent;
+            tagline.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    tagline.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            // Start typing effect after a short delay
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Handle responsive navigation
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-menu').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
